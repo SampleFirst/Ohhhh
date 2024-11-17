@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import yfinance as yf
 from pyrogram import Client, filters
@@ -29,7 +30,7 @@ def suggest(client, message):
     ticker = yf.Ticker(stock)
     info = ticker.info
 
-    recommendation = "Buy" if info['recommendationKey'] == 'buy' else "Sell"
+    recommendation = info.get('recommendationKey', 'N/A')
     analysis = f"""
     Stock: {stock}
     Current Price: {info.get('currentPrice', 'N/A')}
